@@ -1,8 +1,8 @@
 export function formatPrice(price) {
   if (!price || typeof price.amount !== "number") return "";
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("en-IN", {
     style: "currency",
-    currency: "USD",
+    currency: "INR",
     maximumFractionDigits: 0,
     minimumFractionDigits: 0,
   }).format(price.amount);
@@ -62,4 +62,14 @@ export function getPriceConfidence(flight, allFlights) {
   if (pct <= 0.25) return "low";
   if (pct >= 0.75) return "high";
   return "average";
+}
+
+export function formatRupees(amount) {
+  const n = Number(amount);
+  if (!Number.isFinite(n)) return "";
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(n);
 }

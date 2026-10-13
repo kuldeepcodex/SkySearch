@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
   ReferenceLine,
 } from "recharts";
-import { formatPrice, formatTime } from "@/src/domain/flight";
+import { formatPrice, formatRupees, formatTime } from "@/src/domain/flight";
 
 export default function PriceGraph({ flights }) {
   const theme = useTheme();
@@ -40,7 +40,7 @@ export default function PriceGraph({ flights }) {
   const minPrice = prices.length ? Math.min(...prices) : 0;
   const maxPrice = prices.length ? Math.max(...prices) : 500;
 
-  const step = maxPrice <= 100 ? 25 : maxPrice <= 500 ? 50 : 100;
+  const step = maxPrice <= 2000 ? 500 : maxPrice <= 10000 ? 2000 : maxPrice <= 40000 ? 5000 : 10000;
   const yMin = 0;
   const yMax = Math.max(Math.ceil(maxPrice / step) * step, step);
   const yTickCount = 6;
@@ -140,12 +140,12 @@ export default function PriceGraph({ flights }) {
             <YAxis
               domain={[yMin, yMax]}
               tickCount={yTickCount}
-              tickFormatter={(v) => `$${v}`}
+              tickFormatter={(v) => formatRupees(v)}
               tick={{ fill: "currentColor", fontSize: 11 }}
               stroke={isDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)"}
               tickLine={false}
               axisLine={false}
-              width={40}
+              width={72}
               allowDecimals={false}
             />
             <ReferenceLine

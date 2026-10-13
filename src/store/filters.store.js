@@ -3,7 +3,7 @@ import { create } from "zustand";
 const DEFAULT_SORT = "best";
 
 export const useFiltersStore = create((set) => ({
-  priceRange: [0, 10000],
+  priceRange: [0, 1000000],
   selectedStops: [],
   selectedAirlines: [],
   sortPreset: DEFAULT_SORT,
@@ -22,7 +22,7 @@ export const useFiltersStore = create((set) => ({
         : [...state.selectedAirlines, code],
     })),
   setSortPreset: (sortPreset) => set({ sortPreset }),
-  resetFilters: (defaultPriceRange = [0, 10000]) =>
+  resetFilters: (defaultPriceRange = [0, 1000000]) =>
     set({
       priceRange: defaultPriceRange,
       selectedStops: [],

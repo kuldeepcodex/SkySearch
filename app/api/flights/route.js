@@ -1,5 +1,6 @@
 import { fetchAmadeusFlights } from "@/src/api/amadeus";
 import { adaptAmadeusResponse } from "@/src/api/adaptFlight";
+import { generateMockFlights } from "@/src/data/mockFlights";
 
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 function isValidDateString(str) {
@@ -98,5 +99,13 @@ export async function GET(request) {
     }
   }
 
-  return Response.json({ flights: [] });
+  // No API keys: generate demo flights locally.
+  const flights = generateMockFlights({
+    from,
+    to,
+    date: date.trim(),
+    cabinClass: cabinClass?.trim() || "ECONOMY",
+    adults: Math.max(1, adults),
+  });
+  return Response.json({ flights });
 }

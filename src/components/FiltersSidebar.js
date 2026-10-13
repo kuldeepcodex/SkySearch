@@ -17,6 +17,7 @@ import {
 import { Close } from "@mui/icons-material";
 import { useFiltersStore } from "@/src/store/filters.store";
 import { useMemo } from "react";
+import { formatRupees } from "@/src/domain/flight";
 
 
 export default function FiltersSidebar({ open, onClose, flights, isLoading = false }) {
@@ -114,15 +115,15 @@ export default function FiltersSidebar({ open, onClose, flights, isLoading = fal
           setPriceRange(Array.isArray(value) ? value : [value, value])
         }
         valueLabelDisplay="auto"
-        valueLabelFormat={(v) => `$${Number(v).toFixed(2)}`}
+        valueLabelFormat={(v) => formatRupees(v)}
         min={minPrice}
         max={maxPrice}
         disabled={noFlightsAvailable}
         sx={{ mb: 2 }}
       />
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-        <Typography variant="body2">Min: ${Number(priceRange[0]).toFixed(2)}</Typography>
-        <Typography variant="body2">Max: ${Number(priceRange[1]).toFixed(2)}</Typography>
+        <Typography variant="body2">Min: {formatRupees(priceRange[0])}</Typography>
+        <Typography variant="body2">Max: {formatRupees(priceRange[1])}</Typography>
       </Box>
 
       <Divider sx={{ my: 2 }} />

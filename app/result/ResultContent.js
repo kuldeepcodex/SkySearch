@@ -168,7 +168,7 @@ export default function ResultContent() {
     const minP = Math.min(...prices);
     const maxP = Math.max(...prices);
     const [low, high] = priceRange;
-    if (low === 0 && high === 10000) {
+    if (low === 0 && high === 1000000) {
       setPriceRange([minP, maxP]);
     }
   }, [flights, priceRange, setPriceRange]);

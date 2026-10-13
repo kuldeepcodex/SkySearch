@@ -1,4 +1,5 @@
 import { searchLocations } from "@/src/api/amadeus";
+import { searchAirports } from "@/src/data/airports";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -20,10 +21,8 @@ export async function GET(request) {
     clientId.trim() === "" ||
     clientSecret.trim() === ""
   ) {
-    return Response.json(
-      { error: "Amadeus credentials not configured", data: [] },
-      { status: 503 }
-    );
+    // No API keys: use the built-in local airport list instead.
+    return Response.json({ data: searchAirports(keyword) });
   }
 
   try {
